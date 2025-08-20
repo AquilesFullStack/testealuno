@@ -16,13 +16,13 @@ function styles() {
 }
 
 function images() {
-    return gulp.src('./src/images/**/*')
+    return gulp.src('./src/images/**/*', {encoding: false})
     .pipe(imagemin())
     .pipe(gulp.dest('./dist/images'));
 }
 
 exports.default = gulp.parallel(styles, images,  scripts);
-/*exports.watch = function(){
+exports.watch = function(){
     gulp.watch('./src/styles/*.scss', gulp.parallel(styles));
     gulp.watch('./src/scripts/*.js', gulp.parallel(scripts));
-}*/
+}
