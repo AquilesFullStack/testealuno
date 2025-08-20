@@ -21,8 +21,8 @@ function images() {
     .pipe(gulp.dest('./dist/images'));
 }
 
-exports.default = gulp.series(styles, images,  scripts);
-exports.watch = function(){
-    gulp.watch('./src/styles/*.scss', gulp.parallel(styles));
-    gulp.watch('./src/scripts/*.js', gulp.parallel(scripts));
+exports.default = function(){
+    gulp.watch('./source/styles/*.scss', {ignoreInitial: false},gulp.series(scripts));  
+    gulp.watch('./source/scripts/*.js', {ignoreInitial: false},gulp.series(styles)); 
+    gulp.watch('./source/images/*', {ignoreInitial: false},gulp.series(images)); 
 }
