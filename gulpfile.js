@@ -13,7 +13,6 @@ function styles() {
     return gulp.src('./src/styles/*.scss')
     .pipe(sass({outputStyle: 'compressed'}))
     .pipe(gulp.dest('./dist/css'));
-    done();
 }
 
 function images() {
@@ -22,8 +21,13 @@ function images() {
     .pipe(gulp.dest('./dist/images'));
 }
 
-exports.default = function(){
-    gulp.watch('./source/styles/*.scss', {ignoreInitial: false},gulp.series(scripts));  
-    gulp.watch('./source/scripts/*.js', {ignoreInitial: false},gulp.series(styles)); 
-    gulp.watch('./source/images/*', {ignoreInitial: false},gulp.series(images)); 
+exports.build = gulp.series(scripts, styles, images);
+
+function watch() {
+  gulp.watch('./src/styles/*.scss', styles);
+  gulp.watch('./src/scripts/*.js', scripts);
+  gulp.watch('./src/images/**/*', images);
 }
+exports.watch = watch;
+
+exports.default = exports.build;
